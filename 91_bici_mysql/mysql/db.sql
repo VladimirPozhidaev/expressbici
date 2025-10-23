@@ -288,3 +288,11 @@ where
 	INNER JOIN rentabici.modelosbici m
           ON b.idModelosBici=m.idModelosBici
      
+
+
+
+     {  "idbicicletas": "6", "fecha_inicio_expl": "2024-01-01" , "estadoid": "1" }
+
+     http://localhost:3000/api/v1/todo/1
+
+     http://localhost:3000/api/v1/todos?estadoid=2
