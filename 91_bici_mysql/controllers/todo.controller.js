@@ -45,14 +45,14 @@ async function getAllTodos(req, res) {
 async function createTodo(req, res) {
     try {
         // validacion con Joi
-        const { error } = createTODOSchema.validate(req.body);
+        /*const { error } = createTODOSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
                 message: "Validacion datos Todo fallida!",
                 errors: error.details.map(error => error.message)
             });
-        }
+        }*/
 
         const newTodo = await todoModel.create(req.body)
 

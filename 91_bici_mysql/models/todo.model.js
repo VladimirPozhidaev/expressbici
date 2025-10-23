@@ -41,12 +41,28 @@ async function getAll(filters = {}) {
 */
 async function create(todoDATA) {
     try {
-        const [result] = await connex.query("INSERT INTO todos (title) VALUES (?)", [todoDATA.title]);
+        const [result] = await connex.query("INSERT INTO bicicletas (idbicicletas, fecha_inicio_expl, estadoid) VALUES (?,?,?)", 
+            [todoDATA.idbicicletas, todoDATA.fecha_inicio_expl, todoDATA.estadoid]);
         return result;
     } catch (error) {
         throw error;
     }
 }
+/*
+INSERT INTO `rentabici`.`bicicletas`
+(`idbicicletas`,
+`fecha_inicio_expl`,
+`estadoid`,
+`idclientes`,
+`idModelosBici`)
+VALUES
+(<{idbicicletas: }>,
+<{fecha_inicio_expl: }>,
+<{estadoid: }>,
+<{idclientes: }>,
+<{idModelosBici: }>);
+*/
+
 
 /**
  * Obtener una tarea por ID
@@ -56,7 +72,7 @@ async function create(todoDATA) {
 async function getByID(id = 0) {
     try {
         if (!isNaN(id) && id > 0) {
-            const [rows] = await connex.query("SELECT * FROM todos WHERE id = ?", [id]);
+            const [rows] = await connex.query("SELECT * FROM bicicletas WHERE idbicicletas = ?", [id]);
             return rows[0] || null;
         }
         return null;
