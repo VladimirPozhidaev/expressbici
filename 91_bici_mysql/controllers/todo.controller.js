@@ -8,10 +8,10 @@ const { createTODOSchema } = require("../validators/todo.validator");
 async function getAllTodos(req, res) {
     try {
         const filters = {};
-        if (req.query.completed)
-            filters.completed = req.query.completed;
-        if (req.query.priority)
-            filters.priority = req.query.priority;
+        if (req.query.estadoid)
+            filters.estadoid = req.query.estadoid;
+        if (req.query.idModelo)
+            filters.idModelo = req.query.idModelo;
 
         const todosFiltered = await todoModel.getAll(filters);
 

@@ -7,22 +7,27 @@ const connex = require("../mysql/connex");
 */
 async function getAll(filters = {}) {
     try {
-        let query = "SELECT * FROM todos WHERE";
+        let query = "SELECT * FROM bicicletas WHERE 1=1";
         const params = [];
 
         // filtrar por estado completado
-        if (filters.completed !== undefined) {
-            query += " AND completed = ?";
-            params.push(filters.completed === 'true' ? 1 : 0);
+        if (filters.estadoid !== undefined) {
+            query += " AND estadoid = ?";
+            params.push(filters.estadoid);
         }
 
         // filtrar por prioridad
-        if (filters.priority) {
-            query += " AND priority = ?";
-            params.push(filters.priority);
+        if (filters.idModelo !== undefined) {
+            query += " AND idModelosBici = ?";
+            params.push(filters.idModelo);
         }
 
+        console.log("Query:", query);
+        console.log("Params:", params);
+        console.log("filters.estadoid:", filters.estadoid);
+
         const [rows] = await connex.query(query, params);
+        //const [rows] = await connex.query("SELECT * FROM bicicletas");
         return rows;
     } catch (error) {
         throw error;
