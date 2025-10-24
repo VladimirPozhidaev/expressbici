@@ -294,6 +294,35 @@ async function getModelos() {
 
 
 
+/**
+ * Lista rentas
+ * @returns {Array} Lista de rentas
+*/
+async function getRentas() {
+  try {
+    const params = [];
+    let query =
+      "SELECT clientes_idclientes IdCliente, c.nombre, c.apellidos, c.dni, bicicletas_idbicicletas, tiempo_inicio_renta, tiempo_fin_renta," +
+      ' (select direccion from aparcamientos a where a.idaparcamiento = r.aparcamiento_init) "Dir init" , ' +
+      ' (select direccion from aparcamientos a where a.idaparcamiento = r.aparcamiento_final) "Dir fin"' +
+      " FROM rentas r, clientes c" +
+      " where r.clientes_idclientes=c.idclientes";
+
+    const [rows] = await connex.query(query, params);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+
+
+
+
+
+
 module.exports = {
     getAll,
     create,
@@ -305,5 +334,6 @@ module.exports = {
     getFreeBicycles,
     getMantenimientos,
     getClientes,
-    getModelos
+    getModelos,
+    getRentas
 }

@@ -301,7 +301,32 @@ async function getModelos(req, res) {
 }
 
 
-//getModelos
+
+
+/**
+ * Obtener lista de rentas
+ * GET /api/v1/bicycles/rentas
+ * Debe retornar lista de rentas
+ */
+async function getRentas(req, res) {
+    try {
+        const Rentas = await todoModel.getRentas()
+        res.status(200).json({
+            success: true,
+            message: "Obtenidas lista de rentas",
+            data: Rentas
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener lista de rentas: ",
+            error: error.message
+        });
+    }
+}
+
+
 
 
 
@@ -315,5 +340,6 @@ module.exports = {
     getFreeBicycles,
     getMantenimientos,
     getClientes,
-    getModelos
+    getModelos,
+    getRentas
 }

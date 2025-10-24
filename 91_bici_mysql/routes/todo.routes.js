@@ -91,6 +91,15 @@ router.get("/bicycles/clientes", todoController.getClientes);
 router.get("/bicycles/modelos", todoController.getModelos);
 
 
+/**
+ * @route GET /api/v1/bicycles/rentas
+ * @desc: Obtener rentas de bicicletas
+ * @access Public
+*/
+router.get("/bicycles/rentas", todoController.getRentas);
+
+
+
 
 
 
