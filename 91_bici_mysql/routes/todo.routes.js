@@ -8,53 +8,64 @@ router.get("/", (req, res) => {
 });
 
 /**
- * @route GET /api/v1/todos
+ * @route GET /api/v1/bicycles
  * @desc: Obtener todas las tareas (confiltro opcionales)
  * @query complete (boolean), priority (low|midium|high)
  * @access Public
 */
 
-router.get("/todos", todoController.getAllTodos)
+router.get("/bicycles", todoController.getAllTodos)
 
 /**
- * @route POST /api/v1/todos
+ * @route POST /api/v1/bicycles
  * @desc: Crear una nueva tarea
  * @access Public
 */
 
-router.post("/todo", todoController.createTodo)
+router.post("/bicycle", todoController.createTodo)
 
 /**
- * @route GET /api/v1/todo/:id
+ * @route GET /api/v1/bicycle/:id
  * @desc: Obtener una tarea por ID
  * @access Public
  */
-// TODO: router.get("/todo/:id", todoController.getTodoById)
-router.get("/todo/:id", todoController.getTodoById)
+// TODO: router.get("/bicycle/:id", todoController.getTodoById)
+router.get("/bicycle/:id", todoController.getTodoById)
 
 /**
- * @route PUT /api/v1/todo/:id
+ * @route PUT /api/v1/bicycle/:id
  * @desc: Actualizar una tarea por ID
  * @access Public
  */
-// TODO: router.put("/todo/:id", todoController.updateTodo)
-router.put("/todo/:id", todoController.updateTodo)
+// TODO: router.put("/bicycle/:id", todoController.updateTodo)
+router.put("/bicycle/:id", todoController.updateTodo)
 
 /**
- * @route DELETE /api/v1/todo/:id
+ * @route DELETE /api/v1/bicycle/:id
  * @desc: Eliminar una tarea por ID
  * @access Public
  */
-// TODO: router.delete("/todo/:id", todoController.deleteTodo)
-router.delete("/todo/:id", todoController.deleteTodo)
+// TODO: router.delete("/bicycle/:id", todoController.deleteTodo)
+router.delete("/bicycle/:id", todoController.deleteTodo)
 
 /**
- * @route GET /api/v1/todos/stats
+ * @route GET /api/v1/bicycles/stats
  * @desc: Obtener estadísticas de las tareas
  * @access Public
  */
-// TODO: router.get("/todos/stats", todoController.getStats)
-router.get("/todos/stats", todoController.getStats)
+// TODO: router.get("/bicycles/stats", todoController.getStats)
+router.get("/bicycle/stats", todoController.getStats)
+
+
+
+
+/**
+ * @route GET /api/v1/bicycles/free
+ * @desc: Obtener todas las bicicletas libres
+ * @access Public
+*/
+
+router.get("/bicycles/free", todoController.getFreeBicycles);
 
 
 module.exports = router;

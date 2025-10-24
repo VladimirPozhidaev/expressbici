@@ -48,20 +48,6 @@ async function create(todoDATA) {
         throw error;
     }
 }
-/*
-INSERT INTO `rentabici`.`bicicletas`
-(`idbicicletas`,
-`fecha_inicio_expl`,
-`estadoid`,
-`idclientes`,
-`idModelosBici`)
-VALUES
-(<{idbicicletas: }>,
-<{fecha_inicio_expl: }>,
-<{estadoid: }>,
-<{idclientes: }>,
-<{idModelosBici: }>);
-*/
 
 
 /**
@@ -213,6 +199,44 @@ async function existeID(id) {
     }
 }
 
+
+
+
+/**
+ * Obtiene todas las tareas
+ * @params {Object} filters: Filtros Opcionales (completed, priority)
+ * @returns {Array} Lista de tareas
+*/
+async function getFreeBicycles() {
+    try {
+        //let query = "SELECT * FROM bicicletas WHERE 1=1";
+        let query = 
+        'SELECT b.idbicicletas BiciId, b.fecha_inicio_expl "Fecha ini explotacion", e.nombre estado, m.nombre modelo, c.nombre, c.apellidos, c.dni ' +
+        ' FROM rentabici.bicicletas b '+
+        ' LEFT JOIN rentabici.clientes c ON  b.idclientes=c.idclientes' +
+        ' INNER JOIN rentabici.estados e ON b.estadoid=e.idestados ' +
+        ' INNER JOIN rentabici.modelosbici m ON b.idModelosBici=m.idModelosBici '+
+        ' WHERE b.estadoid=3'; // estadoid=3 significa "free" o "disponible"
+        
+        const [rows] = await connex.query(query, params);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = {
     getAll,
     create,
@@ -220,5 +244,6 @@ module.exports = {
     update,
     deleteID,
     getStats,
-    existeID
+    existeID,
+    getFreeBicycles
 }

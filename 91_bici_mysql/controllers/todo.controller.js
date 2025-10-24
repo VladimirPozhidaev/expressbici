@@ -205,11 +205,39 @@ async function getStats(req, res) {
 }
 
 
+/**
+ * Obtener todas las bicicletas libres
+ * GET /api/v1/bicycles/free
+ * Debe retornar lista de bicicletas libres
+ */
+async function getFreeBicycles(req, res) {
+    try {
+        const FreeBicycles = await todoModel.getFreeBicycles()
+        res.status(200).json({
+            success: true,
+            message: "Obtenidas estadísticas de FreeBicycles",
+            data: FreeBicycles
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener FreeBicycles: ",
+            error: error.message
+        });
+    }
+}
+
+
+
+
+
 module.exports = {
     getAllTodos,
     createTodo,
     getTodoById,
     updateTodo,
     deleteTodo,
-    getStats
+    getStats,
+    getFreeBicycles
 }
