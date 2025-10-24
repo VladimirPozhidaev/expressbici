@@ -92,32 +92,39 @@ async function update(id, todoDATA) {
     try {
         const updates = [];
         const params = [];
+       
+        console.log("Parámetros de actualización:", params);
 
-        if (todoDATA.title !== undefined) {
-            updates.push("title = ?");
-            params.push(todoDATA.title);
+        if (todoDATA.fecha_inicio_expl !== undefined) {
+            updates.push("fecha_inicio_expl = ?");
+            params.push(todoDATA.fecha_inicio_expl);
         }
-        if (todoDATA.completed !== undefined) {
-            updates.push("completed = ?");
-            params.push(todoDATA.completed ? 1 : 0);
+        if (todoDATA.estadoid !== undefined) {
+            updates.push("estadoid = ?");
+            params.push(todoDATA.estadoid ? 1 : 0);
         }
-        if (todoDATA.priority !== undefined) {
-            updates.push("priority = ?");
-            params.push(todoDATA.priority);
+        if (todoDATA.idclientes !== undefined) {
+            updates.push("idclientes = ?");
+            params.push(todoDATA.idclientes);
+        }
+        if (todoDATA.idModelosBici !== undefined) {
+            updates.push("idModelosBici = ?");
+            params.push(todoDATA.idModelosBici);
         }
 
         if (updates.length === 0) return null;
 
-        updates.push("updatedAt = NOW()");
         params.push(id);
+        const query = `UPDATE bicicletas SET ${updates.join(", ")} WHERE idbicicletas = ?`;
+        console.log("Query de actualización:", query);
+        console.log("Parámetros de actualización:", params);
 
-        const query = `UPDATE todos SET ${updates.join(", ")} WHERE id = ?`;
         const [result] = await connex.query(query, params);
 
         if (result.affectedRows === 0) return null;
 
         // Obtener la tarea actualizada
-        const [rows] = await connex.query("SELECT * FROM todos WHERE id = ?", [id]);
+        const [rows] = await connex.query("SELECT * FROM bicicletas WHERE idbicicletas = ?", [id]);
         return rows[0];
     } catch (error) {
         throw error;
@@ -133,12 +140,12 @@ async function update(id, todoDATA) {
 async function deleteID(id) {
     try {
         // Primero obtener la tarea antes de eliminarla
-        const [rows] = await connex.query("SELECT * FROM todos WHERE id = ?", [id]);
+        const [rows] = await connex.query("SELECT * FROM bicicletas WHERE idbicicletas = ?", [id]);
 
         if (rows.length === 0) return false;
 
         const deletedTodo = rows[0];
-        await connex.query("DELETE FROM todos WHERE id = ?", [id]);
+        await connex.query("DELETE FROM bicicletas WHERE idbicicletas = ?", [id]);
 
         return deletedTodo;
     } catch (error) {
@@ -199,7 +206,7 @@ async function getStats() {
  */
 async function existeID(id) {
     try {
-        const [rows] = await connex.query("SELECT id FROM todos WHERE id = ?", [id]);
+        const [rows] = await connex.query("SELECT idbicicletas FROM bicicletas WHERE idbicicletas = ?", [id]);
         return rows.length > 0;
     } catch (error) {
         throw error;

@@ -110,14 +110,14 @@ async function getTodoById(req, res) {
  * PUT /api/v1/todo/:id
  */
 async function updateTodo(req, res) {
-    const { error } = createTODOSchema.validate(req.body);
+   /* const { error } = createTODOSchema.validate(req.body);
     if (error) {
         return res.status(400).json({
             success: false,
             message: "Validacion datos Todo fallida!",
             errors: error.details.map(error => error.message)
         });
-    }
+    }*/
 
 
     const id = req.params.id
