@@ -209,6 +209,7 @@ async function existeID(id) {
 */
 async function getFreeBicycles() {
     try {
+        const params = [];
         //let query = "SELECT * FROM bicicletas WHERE 1=1";
         let query = 
         'SELECT b.idbicicletas BiciId, b.fecha_inicio_expl "Fecha ini explotacion", e.nombre estado, m.nombre modelo, c.nombre, c.apellidos, c.dni ' +
@@ -228,8 +229,45 @@ async function getFreeBicycles() {
 
 
 
+/**
+ * Obtiene todas los mantenimientos
+ * @returns {Array} Lista de mantenimientos
+*/
+async function getMantenimientos() {
+    try {
+        const params = [];
+        //let query = "SELECT * FROM bicicletas WHERE 1=1";
+        let query = 
+        'SELECT idMantenimiento, fecha_ini, fecha_fin, descripcion, precio, bicicletas_idbicicletas,  e.nombre estado' +
+        ' FROM mantenimiento m, bicicletas b, rentabici.estados e' +
+        ' WHERE b.estadoid=e.idestados and m.bicicletas_idbicicletas=b.idbicicletas'; 
+
+        const [rows] = await connex.query(query, params);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
+
+/**
+ * Lista clientes
+ * @returns {Array} Lista de clientes
+*/
+async function getClientes() {
+    try {
+        const params = [];
+        //let query = "SELECT * FROM bicicletas WHERE 1=1";
+        let query = 
+        'SELECT 	idclientes, nombre, apellidos, dni, direccion, email, telefono FROM clientes'; 
+
+        const [rows] = await connex.query(query, params);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 
@@ -245,5 +283,7 @@ module.exports = {
     deleteID,
     getStats,
     existeID,
-    getFreeBicycles
+    getFreeBicycles,
+    getMantenimientos,
+    getClientes
 }

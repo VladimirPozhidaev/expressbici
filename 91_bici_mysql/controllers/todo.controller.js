@@ -229,6 +229,54 @@ async function getFreeBicycles(req, res) {
 }
 
 
+/**
+ * Obtener lista de mantenimientos
+ * GET /api/v1/bicycles/mantenimientos
+ * Debe retornar lista de mantenimientos
+ */
+async function getMantenimientos(req, res) {
+    try {
+        const Mantenimientos = await todoModel.getMantenimientos()
+        res.status(200).json({
+            success: true,
+            message: "Obtenidas lista de Mantenimientos",
+            data: Mantenimientos
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener lista de Mantenimientos: ",
+            error: error.message
+        });
+    }
+}
+
+
+/**
+ * Obtener lista de clientes
+ * GET /api/v1/bicycles/clientes
+ * Debe retornar lista de clientes
+ */
+async function getClientes(req, res) {
+    try {
+        const Mantenimientos = await todoModel.getClientes()
+        res.status(200).json({
+            success: true,
+            message: "Obtenidas lista de clientes",
+            data: Mantenimientos
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener lista de clientes: ",
+            error: error.message
+        });
+    }
+}
+
+//getClientes
 
 
 
@@ -239,5 +287,7 @@ module.exports = {
     updateTodo,
     deleteTodo,
     getStats,
-    getFreeBicycles
+    getFreeBicycles,
+    getMantenimientos,
+    getClientes
 }

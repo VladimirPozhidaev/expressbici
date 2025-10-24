@@ -67,5 +67,19 @@ router.get("/bicycle/stats", todoController.getStats)
 
 router.get("/bicycles/free", todoController.getFreeBicycles);
 
+/**
+ * @route GET /api/v1/bicycles/mantenimientos
+ * @desc: Obtener mantenimientos de bicicletas
+ * @access Public
+*/
+router.get("/bicycles/mantenimientos", todoController.getMantenimientos);
 
+
+/**
+ * @route GET /api/v1/bicycles/clientes
+ * @desc: Obtener clientes
+ * @access Public
+*/
+router.get("/bicycles/clientes", todoController.getClientes);
+//getClientes
 module.exports = router;
