@@ -260,7 +260,7 @@ async function getClientes() {
         const params = [];
         //let query = "SELECT * FROM bicicletas WHERE 1=1";
         let query = 
-        'SELECT 	idclientes, nombre, apellidos, dni, direccion, email, telefono FROM clientes'; 
+        'SELECT idclientes, nombre, apellidos, dni, direccion, email, telefono FROM clientes'; 
 
         const [rows] = await connex.query(query, params);
         return rows;
@@ -270,7 +270,26 @@ async function getClientes() {
 }
 
 
+/**
+ * Lista modelos con cantidad de bicicletas
+ * @returns {Array} Lista de modelos con cantidad de bicicletas
+*/
+async function getModelos() {
+    try {
+        const params = [];
+        //let query = "SELECT * FROM bicicletas WHERE 1=1";
+        let query = 
+        'SELECT idModelosBici, nombre, fecha_garantia, nombrefabricante,' +
+        ' (select count(*) from bicicletas b ' +
+        ' where b.idModelosBici=m.idModelosBici)' +
+        ' FROM modelosbici m'; 
 
+        const [rows] = await connex.query(query, params);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 
@@ -285,5 +304,6 @@ module.exports = {
     existeID,
     getFreeBicycles,
     getMantenimientos,
-    getClientes
+    getClientes,
+    getModelos
 }

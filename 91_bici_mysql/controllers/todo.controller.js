@@ -276,7 +276,32 @@ async function getClientes(req, res) {
     }
 }
 
-//getClientes
+
+/**
+ * Obtener lista de modelos con cantidad de bicicletas
+ * GET /api/v1/bicycles/modelos
+ * Debe retornar lista de modelos con cantidad de bicicletas
+ */
+async function getModelos(req, res) {
+    try {
+        const Modelos = await todoModel.getModelos()
+        res.status(200).json({
+            success: true,
+            message: "Obtenidas lista de modelos",
+            data: Modelos
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener lista de modelos: ",
+            error: error.message
+        });
+    }
+}
+
+
+//getModelos
 
 
 
@@ -289,5 +314,6 @@ module.exports = {
     getStats,
     getFreeBicycles,
     getMantenimientos,
-    getClientes
+    getClientes,
+    getModelos
 }
